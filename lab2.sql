@@ -1,10 +1,10 @@
 /* 
-1) êàæäàÿ äåòàëü ñîñòîèò èç îïåðàöèé
-2) ïðè èçãîòîâëåíèè äåòàëè ðàáî÷èé âûïîëíÿåò îïåðàöèè
-3) ïðè èçãîòîâëåíèè äåòàëè óêàçûâàåòñÿ, êàêóþ èìåííî äåòàëü îáðàáàòûâàåò ðàáî÷èé
+1) ÐºÐ°Ð¶Ð´Ð°Ñ Ð´ÐµÑ‚Ð°Ð»ÑŒ ÑÐ¾ÑÑ‚Ð¾Ð¸Ñ‚ Ð¸Ð· Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸Ð¹
+2) Ð¿Ñ€Ð¸ Ð¸Ð·Ð³Ð¾Ñ‚Ð¾Ð²Ð»ÐµÐ½Ð¸Ð¸ Ð´ÐµÑ‚Ð°Ð»Ð¸ Ñ€Ð°Ð±Ð¾Ñ‡Ð¸Ð¹ Ð²Ñ‹Ð¿Ð¾Ð»Ð½ÑÐµÑ‚ Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸Ð¸
+3) Ð¿Ñ€Ð¸ Ð¸Ð·Ð³Ð¾Ñ‚Ð¾Ð²Ð»ÐµÐ½Ð¸Ð¸ Ð´ÐµÑ‚Ð°Ð»Ð¸ ÑƒÐºÐ°Ð·Ñ‹Ð²Ð°ÐµÑ‚ÑÑ, ÐºÐ°ÐºÑƒÑŽ Ð¸Ð¼ÐµÐ½Ð½Ð¾ Ð´ÐµÑ‚Ð°Ð»ÑŒ Ð¾Ð±Ñ€Ð°Ð±Ð°Ñ‚Ñ‹Ð²Ð°ÐµÑ‚ Ñ€Ð°Ð±Ð¾Ñ‡Ð¸Ð¹
 */
 
-/* Òàáëèöà îïåðàöèé */
+/* Ð¢Ð°Ð±Ð»Ð¸Ñ†Ð° Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸Ð¹ */
 CREATE TABLE user39_PROCEDURE
 (
   PROCNO INT NOT NULL,
@@ -17,7 +17,7 @@ ALTER TABLE user39_PROCEDURE
 ALTER TABLE user39_PROCEDURE
   ADD CONSTRAINT user39_PROCEDURE_UK UNIQUE (PROCNAME);
 
-/* Òàáëèöà äåòàëåé */
+/* Ð¢Ð°Ð±Ð»Ð¸Ñ†Ð° Ð´ÐµÑ‚Ð°Ð»ÐµÐ¹ */
 CREATE TABLE user39_COMPONENT
 (
   COMPNO INT NOT NULL,
@@ -29,7 +29,7 @@ ALTER TABLE user39_COMPONENT
 ALTER TABLE user39_COMPONENT
   ADD CONSTRAINT user39_COMPONENT_UK UNIQUE (COMPNAME);
 
-/* Ïðîìåæóòî÷íàÿ òàáëèöà */
+/* ÐŸÑ€Ð¾Ð¼ÐµÐ¶ÑƒÑ‚Ð¾Ñ‡Ð½Ð°Ñ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ð° */
 CREATE TABLE user39_COMPPROC
 (
   ID INT NOT NULL,
@@ -47,7 +47,7 @@ ALTER TABLE user39_COMPPROC
   ADD CONSTRAINT user39_COMPPROC_COMPONENT_FK FOREIGN KEY (COMPNO)
   REFERENCES user39_COMPONENT (COMPNO);
 
-/* Òàáëèöà ðàáîòíèêîâ */
+/* Ð¢Ð°Ð±Ð»Ð¸Ñ†Ð° Ñ€Ð°Ð±Ð¾Ñ‚Ð½Ð¸ÐºÐ¾Ð² */
 CREATE TABLE user39_EMPLOYEE
 (
   EMPNO INT NOT NULL,
@@ -60,7 +60,7 @@ CREATE TABLE user39_EMPLOYEE
 ALTER TABLE user39_EMPLOYEE
   ADD CONSTRAINT user39_EMPLOYEE_PK PRIMARY KEY (EMPNO);
 
-/* Òàáëèöà ðàáî÷åãî âðåìåíè */
+/* Ð¢Ð°Ð±Ð»Ð¸Ñ†Ð° Ñ€Ð°Ð±Ð¾Ñ‡ÐµÐ³Ð¾ Ð²Ñ€ÐµÐ¼ÐµÐ½Ð¸ */
 CREATE TABLE user39_WORKHOURS
 (
   ID INT NOT NULL,
@@ -79,39 +79,39 @@ ALTER TABLE user39_WORKHOURS
   ADD CONSTRAINT user39_WORKHOURS_COMPONENT_FK FOREIGN KEY (COMPNO)
   REFERENCES user39_COMPONENT (COMPNO);
 
-/* Äàííûå ïî îïåðàöèÿì */
-INSERT INTO user39_PROCEDURE VALUES (1,'Ôðåçåðíûå ðàáîòû','Âûñîêàÿ');
-INSERT INTO user39_PROCEDURE VALUES (2,'Çóáîíàðåçíûå ðàáîòû','Ñðåäíÿÿ');
-INSERT INTO user39_PROCEDURE VALUES (3,'Òîêàðíûå ðàáîòû','Íèçêàÿ');
+/* Ð”Ð°Ð½Ð½Ñ‹Ðµ Ð¿Ð¾ Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸ÑÐ¼ */
+INSERT INTO user39_PROCEDURE VALUES (1,'Ð¤Ñ€ÐµÐ·ÐµÑ€Ð½Ñ‹Ðµ Ñ€Ð°Ð±Ð¾Ñ‚Ñ‹','Ð’Ñ‹ÑÐ¾ÐºÐ°Ñ');
+INSERT INTO user39_PROCEDURE VALUES (2,'Ð—ÑƒÐ±Ð¾Ð½Ð°Ñ€ÐµÐ·Ð½Ñ‹Ðµ Ñ€Ð°Ð±Ð¾Ñ‚Ñ‹','Ð¡Ñ€ÐµÐ´Ð½ÑÑ');
+INSERT INTO user39_PROCEDURE VALUES (3,'Ð¢Ð¾ÐºÐ°Ñ€Ð½Ñ‹Ðµ Ñ€Ð°Ð±Ð¾Ñ‚Ñ‹','ÐÐ¸Ð·ÐºÐ°Ñ');
 
-/* Äàííûå ïî äåòàëÿì */
-INSERT INTO user39_COMPONENT VALUES (1,'Âòóëêà');
-INSERT INTO user39_COMPONENT VALUES (2,'Êëàïàí');
-INSERT INTO user39_COMPONENT VALUES (3,'Äþáåëü');
+/* Ð”Ð°Ð½Ð½Ñ‹Ðµ Ð¿Ð¾ Ð´ÐµÑ‚Ð°Ð»ÑÐ¼ */
+INSERT INTO user39_COMPONENT VALUES (1,'Ð’Ñ‚ÑƒÐ»ÐºÐ°');
+INSERT INTO user39_COMPONENT VALUES (2,'ÐšÐ»Ð°Ð¿Ð°Ð½');
+INSERT INTO user39_COMPONENT VALUES (3,'Ð”ÑŽÐ±ÐµÐ»ÑŒ');
 
-/* Äàííûå â ïðîìåæóòî÷íîé òàáëèöå */
+/* Ð”Ð°Ð½Ð½Ñ‹Ðµ Ð² Ð¿Ñ€Ð¾Ð¼ÐµÐ¶ÑƒÑ‚Ð¾Ñ‡Ð½Ð¾Ð¹ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ðµ */
 INSERT INTO user39_COMPPROC VALUES (1, 1, 2, 16);
 INSERT INTO user39_COMPPROC VALUES (2, 1, 3, 8);
 INSERT INTO user39_COMPPROC VALUES (3, 2, 3, 9);
 
-/* Äàííûå ïî ñîòðóäíèêàì */
-INSERT INTO user39_EMPLOYEE VALUES (1,'Èâàíîâ Èâàí Èâàíîâè÷', 1234567, 'óë. Êðàñíàÿ, 5-122', 15);
-INSERT INTO user39_EMPLOYEE VALUES (2,'Ïåòðîâ Ïåòð Ïåòðîâè÷', 3215647, 'óë. Ëåíèíà, 1-62', 15);
-INSERT INTO user39_EMPLOYEE VALUES (3,'Àëåêñååâ Àëåêñåé Àëåêñååâè÷', 6543217, 'óë. Ïîáåäû, 16-9', 15);
+/* Ð”Ð°Ð½Ð½Ñ‹Ðµ Ð¿Ð¾ ÑÐ¾Ñ‚Ñ€ÑƒÐ´Ð½Ð¸ÐºÐ°Ð¼ */
+INSERT INTO user39_EMPLOYEE VALUES (1,'Ð˜Ð²Ð°Ð½Ð¾Ð² Ð˜Ð²Ð°Ð½ Ð˜Ð²Ð°Ð½Ð¾Ð²Ð¸Ñ‡', 1234567, 'ÑƒÐ». ÐšÑ€Ð°ÑÐ½Ð°Ñ, 5-122', 15);
+INSERT INTO user39_EMPLOYEE VALUES (2,'ÐŸÐµÑ‚Ñ€Ð¾Ð² ÐŸÐµÑ‚Ñ€ ÐŸÐµÑ‚Ñ€Ð¾Ð²Ð¸Ñ‡', 3215647, 'ÑƒÐ». Ð›ÐµÐ½Ð¸Ð½Ð°, 1-62', 15);
+INSERT INTO user39_EMPLOYEE VALUES (3,'ÐÐ»ÐµÐºÑÐµÐµÐ² ÐÐ»ÐµÐºÑÐµÐ¹ ÐÐ»ÐµÐºÑÐµÐµÐ²Ð¸Ñ‡', 6543217, 'ÑƒÐ». ÐŸÐ¾Ð±ÐµÐ´Ñ‹, 16-9', 15);
 
-/* Äàííûå ïî ðàáî÷åìó âðåìåíè */
+/* Ð”Ð°Ð½Ð½Ñ‹Ðµ Ð¿Ð¾ Ñ€Ð°Ð±Ð¾Ñ‡ÐµÐ¼Ñƒ Ð²Ñ€ÐµÐ¼ÐµÐ½Ð¸ */
 INSERT INTO user39_WORKHOURS VALUES (1, '20120618 10:34:09 AM', 1, 2, 4);
 INSERT INTO user39_WORKHOURS VALUES (2, '20120619 11:34:01 AM', 2, 3, 6);
 INSERT INTO user39_WORKHOURS VALUES (3, '20120612 12:44:46 AM', 1, 1, 9);
 
-/* Âûáîðêà âñåõ äàííûõ */
+/* Ð’Ñ‹Ð±Ð¾Ñ€ÐºÐ° Ð²ÑÐµÑ… Ð´Ð°Ð½Ð½Ñ‹Ñ… */
 select * from user39_PROCEDURE;
 select * from user39_COMPONENT;
 select * from user39_EMPLOYEE;
 select * from user39_WORKHOURS;
 select * from user39_COMPPROC;
 
--- îïðåäåëèòü ôàìèëèè ñîòðóäíèêîâ, ÷åé ñòàæ âûøå 10 ëåò;
+-- Ð¾Ð¿Ñ€ÐµÐ´ÐµÐ»Ð¸Ñ‚ÑŒ Ñ„Ð°Ð¼Ð¸Ð»Ð¸Ð¸ ÑÐ¾Ñ‚Ñ€ÑƒÐ´Ð½Ð¸ÐºÐ¾Ð², Ñ‡ÐµÐ¹ ÑÑ‚Ð°Ð¶ Ð²Ñ‹ÑˆÐµ 10 Ð»ÐµÑ‚;
 select EMPNAME from user39_EMPLOYEE where EXPERIENCE > 10;
 
 update user39_EMPLOYEE set EXPERIENCE = 9 where EMPNO = 1;
