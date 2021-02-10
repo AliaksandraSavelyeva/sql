@@ -209,7 +209,7 @@ INSERT INTO ORDERS VALUES (113057,'2008-02-18',2111,103,'ACI','4100X',24,600.00)
 INSERT INTO ORDERS VALUES (113042,'2008-02-20',2113,101,'REI','2A44R',5,22500.00);
 
 
---1.	Разработать курсор, который выводит все данные о клиенте.
+--1.	Р Р°Р·СЂР°Р±РѕС‚Р°С‚СЊ РєСѓСЂСЃРѕСЂ, РєРѕС‚РѕСЂС‹Р№ РІС‹РІРѕРґРёС‚ РІСЃРµ РґР°РЅРЅС‹Рµ Рѕ РєР»РёРµРЅС‚Рµ.
 --select * from customers;
 declare @cust_id int, @company varchar(20), @cust_rep int, @limit decimal (9, 2), @result varchar (100);
 
@@ -229,7 +229,7 @@ end;
 close customer_cursor;
 deallocate customer_cursor;
 
---2.	Разработать курсор, который выводит все данные о сотрудниках офисов и их количество.
+--2.	Р Р°Р·СЂР°Р±РѕС‚Р°С‚СЊ РєСѓСЂСЃРѕСЂ, РєРѕС‚РѕСЂС‹Р№ РІС‹РІРѕРґРёС‚ РІСЃРµ РґР°РЅРЅС‹Рµ Рѕ СЃРѕС‚СЂСѓРґРЅРёРєР°С… РѕС„РёСЃРѕРІ Рё РёС… РєРѕР»РёС‡РµСЃС‚РІРѕ.
 select * from offices;
 select * from salesreps;
 
@@ -271,7 +271,7 @@ open office_cursor;
 close office_cursor;
 deallocate office_cursor;
 
---3.	Разработать локальный курсор, который выводит все сведения о товарах и их среднюю цену.
+--3.	Р Р°Р·СЂР°Р±РѕС‚Р°С‚СЊ Р»РѕРєР°Р»СЊРЅС‹Р№ РєСѓСЂСЃРѕСЂ, РєРѕС‚РѕСЂС‹Р№ РІС‹РІРѕРґРёС‚ РІСЃРµ СЃРІРµРґРµРЅРёСЏ Рѕ С‚РѕРІР°СЂР°С… Рё РёС… СЃСЂРµРґРЅСЋСЋ С†РµРЅСѓ.
 declare @name_product varchar(5), @desc varchar(10), @name_mnf varchar(3), @price money, @on_hand int, @sales_qty int, @sales1 money;
 declare @avg_price numeric(9,2), @message2 varchar(80);
 
@@ -303,7 +303,7 @@ open manufacture_detail;
 close manufacture_detail;
 deallocate manufacture_detail;
 
---4.	Разработать глобальный курсор, который выводит сведения о заказах, выполненных в 2008 году.
+--4.	Р Р°Р·СЂР°Р±РѕС‚Р°С‚СЊ РіР»РѕР±Р°Р»СЊРЅС‹Р№ РєСѓСЂСЃРѕСЂ, РєРѕС‚РѕСЂС‹Р№ РІС‹РІРѕРґРёС‚ СЃРІРµРґРµРЅРёСЏ Рѕ Р·Р°РєР°Р·Р°С…, РІС‹РїРѕР»РЅРµРЅРЅС‹С… РІ 2008 РіРѕРґСѓ.
 declare @order_num int, @date date, @cust int, @rep int, @mfr char(3), @prod varchar(8), @quantity int, @amount numeric(9, 2), @message1 varchar(80);
 declare order_details cursor global for
 select * from orders where year(order_date) = '2008';
@@ -319,7 +319,7 @@ open order_details;
 close order_details;
 deallocate order_details;
 
---5.	Разработать статический курсор, который выводит сведения о покупателях и их заказах.
+--5.	Р Р°Р·СЂР°Р±РѕС‚Р°С‚СЊ СЃС‚Р°С‚РёС‡РµСЃРєРёР№ РєСѓСЂСЃРѕСЂ, РєРѕС‚РѕСЂС‹Р№ РІС‹РІРѕРґРёС‚ СЃРІРµРґРµРЅРёСЏ Рѕ РїРѕРєСѓРїР°С‚РµР»СЏС… Рё РёС… Р·Р°РєР°Р·Р°С….
 declare @cust_company varchar(20), @cust_num int, @cust_output varchar(150);
 declare @order_number int, @order_date date, @product varchar(10), @quant int, @order_amount decimal(9, 2), @company_output varchar(150);
 
@@ -351,7 +351,7 @@ open customer_detail;
 close customer_detail;
 deallocate customer_detail;
 
---6.	Разработать динамический курсор, который обновляет данные о сотруднике в зависимости от суммы выполненных заказов (поле SALES).
+--6.	Р Р°Р·СЂР°Р±РѕС‚Р°С‚СЊ РґРёРЅР°РјРёС‡РµСЃРєРёР№ РєСѓСЂСЃРѕСЂ, РєРѕС‚РѕСЂС‹Р№ РѕР±РЅРѕРІР»СЏРµС‚ РґР°РЅРЅС‹Рµ Рѕ СЃРѕС‚СЂСѓРґРЅРёРєРµ РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ СЃСѓРјРјС‹ РІС‹РїРѕР»РЅРµРЅРЅС‹С… Р·Р°РєР°Р·РѕРІ (РїРѕР»Рµ SALES).
 declare @rep int, @sales decimal (9, 2);
 declare update_cursor cursor local dynamic for
 	select rep, sum(amount) as sales_order from orders
@@ -368,16 +368,16 @@ close update_cursor;
 deallocate update_cursor;
 
 
---7.	Продемонстрировать свойства SCROLL.
+--7.	РџСЂРѕРґРµРјРѕРЅСЃС‚СЂРёСЂРѕРІР°С‚СЊ СЃРІРѕР№СЃС‚РІР° SCROLL.
 
 declare cursor_scroll cursor scroll for
 select * from salesreps;
 open cursor_scroll
-	fetch last from cursor_scroll; -- последняя строка
-	fetch prior from cursor_scroll; -- предыдущая строка
-	fetch first from cursor_scroll; -- первая строка
-	fetch absolute 3 from cursor_scroll; -- строка по абс. номеру
-	fetch relative 4 from cursor_scroll; -- строка со смещением от текущей
+	fetch last from cursor_scroll; -- ГЇГ®Г±Г«ГҐГ¤Г­ГїГї Г±ГІГ°Г®ГЄГ 
+	fetch prior from cursor_scroll; -- ГЇГ°ГҐГ¤Г»Г¤ГіГ№Г Гї Г±ГІГ°Г®ГЄГ 
+	fetch first from cursor_scroll; -- ГЇГҐГ°ГўГ Гї Г±ГІГ°Г®ГЄГ 
+	fetch absolute 3 from cursor_scroll; -- Г±ГІГ°Г®ГЄГ  ГЇГ® Г ГЎГ±. Г­Г®Г¬ГҐГ°Гі
+	fetch relative 4 from cursor_scroll; -- Г±ГІГ°Г®ГЄГ  Г±Г® Г±Г¬ГҐГ№ГҐГ­ГЁГҐГ¬ Г®ГІ ГІГҐГЄГіГ№ГҐГ©
 close cursor_scroll;
 deallocate cursor_scroll;
 
