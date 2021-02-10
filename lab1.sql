@@ -1,4 +1,4 @@
-/* Таблица подразделений */
+/* РўР°Р±Р»РёС†Р° РїРѕРґСЂР°Р·РґРµР»РµРЅРёР№ */
 CREATE TABLE user39_DEPT
 (
   DEPTNO INT NOT NULL,
@@ -12,7 +12,7 @@ ALTER TABLE user39_DEPT
 ALTER TABLE user39_DEPT
   ADD CONSTRAINT user39_DEPT_UK UNIQUE (DNAME);
 
-/* Таблица сотрудников */
+/* РўР°Р±Р»РёС†Р° СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ */
 CREATE TABLE user39_EMP
 (
   EMPNO    INT NOT NULL,
@@ -37,7 +37,7 @@ ALTER TABLE user39_EMP
   REFERENCES user39_EMP (EMPNO);
 
   
-/* Таблица вилок зарплат */
+/* РўР°Р±Р»РёС†Р° РІРёР»РѕРє Р·Р°СЂРїР»Р°С‚ */
 CREATE TABLE user39_SALGRADE (
  GRADE               INT NOT NULL,
  LOSAL               INT,
@@ -46,13 +46,13 @@ CREATE TABLE user39_SALGRADE (
 ALTER TABLE user39_SALGRADE
   ADD CONSTRAINT user39_SALGRADE_PK PRIMARY KEY (GRADE);
 
-/* Данные по подразделениям */
+/* Р”Р°РЅРЅС‹Рµ РїРѕ РїРѕРґСЂР°Р·РґРµР»РµРЅРёСЏРј */
 INSERT INTO user39_DEPT VALUES (10,'ACCOUNTING','NEW YORK');
 INSERT INTO user39_DEPT VALUES (20,'RESEARCH','DALLAS');
 INSERT INTO user39_DEPT VALUES (30,'SALES','CHICAGO');
 INSERT INTO user39_DEPT VALUES (40,'OPERATIONS','BOSTON');
 
-/* Данные по сотрудникам */
+/* Р”Р°РЅРЅС‹Рµ РїРѕ СЃРѕС‚СЂСѓРґРЅРёРєР°Рј */
 INSERT INTO user39_EMP VALUES (7839,'KING','PRESIDENT',NULL,'2011-09-11',5000,NULL,10);
 INSERT INTO user39_EMP VALUES (7698,'BLAKE','MANAGER',7839,'2014-01-31',2850,NULL,30);
 INSERT INTO user39_EMP VALUES (7782,'CLARK','MANAGER',7839,'2013-02-21',2450,NULL,10);
@@ -68,7 +68,7 @@ INSERT INTO user39_EMP VALUES (7788,'SCOTT','ANALYST',7566,'2017-01-11',3000,NUL
 INSERT INTO user39_EMP VALUES (7876,'ADAMS','CLERK',7788,'2018-07-13',1100,NULL,20);
 INSERT INTO user39_EMP VALUES (7934,'MILLER','CLERK',7782,'2018-03-12',1300,NULL,10);
 
-/* Данные по уровням зарплат */
+/* Р”Р°РЅРЅС‹Рµ РїРѕ СѓСЂРѕРІРЅСЏРј Р·Р°СЂРїР»Р°С‚ */
 INSERT INTO user39_SALGRADE VALUES (1,700,1200);
 INSERT INTO user39_SALGRADE VALUES (2,1201,1400);
 INSERT INTO user39_SALGRADE VALUES (3,1401,2000);
@@ -79,29 +79,29 @@ select * from user39_DEPT;
 select * from user39_SALGRADE;
 select * from user39_EMP;
 
--- определить фамилии сотрудников, зарплаты которых ниже 5000;
+-- РѕРїСЂРµРґРµР»РёС‚СЊ С„Р°РјРёР»РёРё СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ, Р·Р°СЂРїР»Р°С‚С‹ РєРѕС‚РѕСЂС‹С… РЅРёР¶Рµ 5000;
 select ENAME, SAL from user39_EMP where SAL < 5000;
 select ENAME from user39_EMP where COMM > 300;
 
--- найти отделы, которые находятся не в Далласе;
+-- РЅР°Р№С‚Рё РѕС‚РґРµР»С‹, РєРѕС‚РѕСЂС‹Рµ РЅР°С…РѕРґСЏС‚СЃСЏ РЅРµ РІ Р”Р°Р»Р»Р°СЃРµ;
 select DNAME from user39_DEPT where LOC != 'DALLAS';
 
--- определить фамилии сотрудников из отдела 30;
+-- РѕРїСЂРµРґРµР»РёС‚СЊ С„Р°РјРёР»РёРё СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РёР· РѕС‚РґРµР»Р° 30;
 select ENAME from user39_EMP where DEPTNO = 30;
 select ENAME, SAL+COMM from user39_EMP where DEPTNO = 30;
 
--- найти сотрудников, чьим начальником является сотрудник 7654;
+-- РЅР°Р№С‚Рё СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ, С‡СЊРёРј РЅР°С‡Р°Р»СЊРЅРёРєРѕРј СЏРІР»СЏРµС‚СЃСЏ СЃРѕС‚СЂСѓРґРЅРёРє 7654;
 select ENAME from user39_EMP where MGR = 7654;
 select ENAME from user39_EMP where EMPNO = 7654;
 
--- отсортировать сотрудников их дате найма;
+-- РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°С‚СЊ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РёС… РґР°С‚Рµ РЅР°Р№РјР°;
 select * from user39_EMP order by HIREDATE desc, JOB;
 
--- обновить фамилию сотрудник #7844;
+-- РѕР±РЅРѕРІРёС‚СЊ С„Р°РјРёР»РёСЋ СЃРѕС‚СЂСѓРґРЅРёРє #7844;
 update user39_EMP set ENAME = 'DOE' where EMPNO = 7844;
 
--- удалить данные о сотруднике #7876;
+-- СѓРґР°Р»РёС‚СЊ РґР°РЅРЅС‹Рµ Рѕ СЃРѕС‚СЂСѓРґРЅРёРєРµ #7876;
 delete from user39_EMP where EMPNO = 7876;
 
--- добавить данные обратно;
+-- РґРѕР±Р°РІРёС‚СЊ РґР°РЅРЅС‹Рµ РѕР±СЂР°С‚РЅРѕ;
 INSERT INTO user39_EMP VALUES (7876,'ADAMS','CLERK',7788,'2018-07-13',1100,NULL,20);
