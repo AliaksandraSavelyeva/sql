@@ -1,8 +1,8 @@
 use Savelyeva_04;
 select * from customers;
---Программирование T-SQL.
---1.	Разработать хранимые процедуры: 
---1.1.	Добавления нового клиента; при попытке дублирования данных — вывести сообщение об ошибке.
+--РџСЂРѕРіСЂР°РјРјРёСЂРѕРІР°РЅРёРµ T-SQL.
+--1.	Р Р°Р·СЂР°Р±РѕС‚Р°С‚СЊ С…СЂР°РЅРёРјС‹Рµ РїСЂРѕС†РµРґСѓСЂС‹: 
+--1.1.	Р”РѕР±Р°РІР»РµРЅРёСЏ РЅРѕРІРѕРіРѕ РєР»РёРµРЅС‚Р°; РїСЂРё РїРѕРїС‹С‚РєРµ РґСѓР±Р»РёСЂРѕРІР°РЅРёСЏ РґР°РЅРЅС‹С… вЂ” РІС‹РІРµСЃС‚Рё СЃРѕРѕР±С‰РµРЅРёРµ РѕР± РѕС€РёР±РєРµ.
 
 create procedure AddNewCustomer (@cust_num int, @company varchar(20), @cust_rep int, @limit decimal(9, 2))
 as
@@ -13,7 +13,7 @@ begin try
 end try
 begin catch
 	set @rc = -1
-	print 'Ошибка';
+	print 'РћС€РёР±РєР°';
 end catch
 return @rc;
 end
@@ -28,13 +28,13 @@ exec AddNewCustomer @cust_num1, @company1, @cust_rep1, @limit1;
 drop procedure AddNewCustomer;
 select * from customers;
 
---1.2.	Поиска клиента по части названия; если такого не нашлось — вывести сообщение.
+--1.2.	РџРѕРёСЃРєР° РєР»РёРµРЅС‚Р° РїРѕ С‡Р°СЃС‚Рё РЅР°Р·РІР°РЅРёСЏ; РµСЃР»Рё С‚Р°РєРѕРіРѕ РЅРµ РЅР°С€Р»РѕСЃСЊ вЂ” РІС‹РІРµСЃС‚Рё СЃРѕРѕР±С‰РµРЅРёРµ.
 
 create procedure FindCustomer @part_name varchar(4)
 as
 begin
 	if not exists (select company from customers where company like '%' + @part_name + '%')
-	print 'Ошибка';
+	print 'РћС€РёР±РєР°';
 	else
 	select company from customers where company like '%' + @part_name + '%'
 end
@@ -43,7 +43,7 @@ exec FindCustomer @part_name = 'in';
 
 drop procedure FindCustomer;
 
---1.3.	Обновления данных клиента.
+--1.3.	РћР±РЅРѕРІР»РµРЅРёСЏ РґР°РЅРЅС‹С… РєР»РёРµРЅС‚Р°.
 create procedure UpdateCustomer @id int
 as
 declare @rc int = 0;
@@ -54,7 +54,7 @@ begin
 	end try
 	begin catch
 		set @rc = -1
-		print 'Ошибка';
+		print 'РћС€РёР±РєР°';
 	end catch
 return @rc;
 end
@@ -64,7 +64,7 @@ drop procedure UpdateCustomer;
 
 select * from customers where cust_rep = 103;
 
---1.4.	Удаления данных о клиенте; если у клиента есть заказы, и его нельзя удалить — вывести сообщение. 
+--1.4.	РЈРґР°Р»РµРЅРёСЏ РґР°РЅРЅС‹С… Рѕ РєР»РёРµРЅС‚Рµ; РµСЃР»Рё Сѓ РєР»РёРµРЅС‚Р° РµСЃС‚СЊ Р·Р°РєР°Р·С‹, Рё РµРіРѕ РЅРµР»СЊР·СЏ СѓРґР°Р»РёС‚СЊ вЂ” РІС‹РІРµСЃС‚Рё СЃРѕРѕР±С‰РµРЅРёРµ. 
 select * from customers;
 select * from orders;
 
@@ -83,7 +83,7 @@ begin
 	end
 	else 
 	begin 
-		print 'Ошибка';
+		print 'РћС€РёР±РєР°';
 	end
 end
 
@@ -100,9 +100,9 @@ drop procedure DeleteCustomers;
 --insert into customers values (2123, 'Carter \& Sons', 102, 40000.00);
 --insert into customers values (2125, 'Liuws',101,10000.00);
 
---3.	Разработать пользовательские функции: 
---3.1.	Подсчитать количество заказов сотрудника в определенный период. Если такого сотрудника нет — вернуть -1. Если сотрудник есть, 
---а заказов нет — вернуть 0.
+--3.	Р Р°Р·СЂР°Р±РѕС‚Р°С‚СЊ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёРµ С„СѓРЅРєС†РёРё: 
+--3.1.	РџРѕРґСЃС‡РёС‚Р°С‚СЊ РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РєР°Р·РѕРІ СЃРѕС‚СЂСѓРґРЅРёРєР° РІ РѕРїСЂРµРґРµР»РµРЅРЅС‹Р№ РїРµСЂРёРѕРґ. Р•СЃР»Рё С‚Р°РєРѕРіРѕ СЃРѕС‚СЂСѓРґРЅРёРєР° РЅРµС‚ вЂ” РІРµСЂРЅСѓС‚СЊ -1. Р•СЃР»Рё СЃРѕС‚СЂСѓРґРЅРёРє РµСЃС‚СЊ, 
+--Р° Р·Р°РєР°Р·РѕРІ РЅРµС‚ вЂ” РІРµСЂРЅСѓС‚СЊ 0.
 
 create function CountOrders(@rep int, @datefrom date, @dateto date) returns int
 begin
@@ -121,7 +121,7 @@ set @rep = dbo.CountOrders(189, '2006-01-12', '2008-01-01');
 select empl_num, name, dbo.CountOrders(empl_num, '2006-01-12', '2008-01-01') from salesreps;
 print @rep;
 
---3.2.	Подсчитать количество товаров различных производителей ценой выше указанной. 
+--3.2.	РџРѕРґСЃС‡РёС‚Р°С‚СЊ РєРѕР»РёС‡РµСЃС‚РІРѕ С‚РѕРІР°СЂРѕРІ СЂР°Р·Р»РёС‡РЅС‹С… РїСЂРѕРёР·РІРѕРґРёС‚РµР»РµР№ С†РµРЅРѕР№ РІС‹С€Рµ СѓРєР°Р·Р°РЅРЅРѕР№. 
 
 create function GoodCount() returns table
 as return
@@ -132,7 +132,7 @@ select * from GoodCount();
 go
 
 
---3.3.	Подсчитать количество заказанных товаров для определенного производителя.
+--3.3.	РџРѕРґСЃС‡РёС‚Р°С‚СЊ РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РєР°Р·Р°РЅРЅС‹С… С‚РѕРІР°СЂРѕРІ РґР»СЏ РѕРїСЂРµРґРµР»РµРЅРЅРѕРіРѕ РїСЂРѕРёР·РІРѕРґРёС‚РµР»СЏ.
 create function MfrGoodCount(@mfr varchar(10)) returns table
 as return
 (select mfr, count(product) as count_prod from orders
@@ -141,6 +141,4 @@ go
 
 declare @mfr varchar(10) = 'IMM'
 select * from MfrGoodCount(@mfr);
-
-
 
