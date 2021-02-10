@@ -1,13 +1,13 @@
 use Savelyeva_04;
 
---Специальные типы данных в SQL Server - XML.
---1.	Создайте XML файл из таблиц базы данных следующего вида:
---1.1.	Иерархия XML: Office List – Region – City – Employee.
---1.2.	Корневым элементом является «Office List», атрибут – Employee_Count (общее количество сотрудников).
---1.3.	Элемент Region, атрибуты – Region_Name (наименование региона), Region_Employee_Count (общее количество сотрудников в регионе).
---1.4.	Элемент City, атрибуты – City_Name (наименование города), City_Employee_Count (общее количество сотрудников в городе), City_Chef (фамилия руководителя подразделения).
---1.5.	Элемент Employee, атрибуты – Employee_Name (имя сотрудника), Employee_Title (должность сотрудника), Hire_Date (дата найма).
---1.6.	Элементы должны быть отсортированы по алфавиту.
+--РЎРїРµС†РёР°Р»СЊРЅС‹Рµ С‚РёРїС‹ РґР°РЅРЅС‹С… РІ SQL Server - XML.
+--1.	РЎРѕР·РґР°Р№С‚Рµ XML С„Р°Р№Р» РёР· С‚Р°Р±Р»РёС† Р±Р°Р·С‹ РґР°РЅРЅС‹С… СЃР»РµРґСѓСЋС‰РµРіРѕ РІРёРґР°:
+--1.1.	РРµСЂР°СЂС…РёСЏ XML: Office List вЂ“ Region вЂ“ City вЂ“ Employee.
+--1.2.	РљРѕСЂРЅРµРІС‹Рј СЌР»РµРјРµРЅС‚РѕРј СЏРІР»СЏРµС‚СЃСЏ В«Office ListВ», Р°С‚СЂРёР±СѓС‚ вЂ“ Employee_Count (РѕР±С‰РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ).
+--1.3.	Р­Р»РµРјРµРЅС‚ Region, Р°С‚СЂРёР±СѓС‚С‹ вЂ“ Region_Name (РЅР°РёРјРµРЅРѕРІР°РЅРёРµ СЂРµРіРёРѕРЅР°), Region_Employee_Count (РѕР±С‰РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РІ СЂРµРіРёРѕРЅРµ).
+--1.4.	Р­Р»РµРјРµРЅС‚ City, Р°С‚СЂРёР±СѓС‚С‹ вЂ“ City_Name (РЅР°РёРјРµРЅРѕРІР°РЅРёРµ РіРѕСЂРѕРґР°), City_Employee_Count (РѕР±С‰РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РІ РіРѕСЂРѕРґРµ), City_Chef (С„Р°РјРёР»РёСЏ СЂСѓРєРѕРІРѕРґРёС‚РµР»СЏ РїРѕРґСЂР°Р·РґРµР»РµРЅРёСЏ).
+--1.5.	Р­Р»РµРјРµРЅС‚ Employee, Р°С‚СЂРёР±СѓС‚С‹ вЂ“ Employee_Name (РёРјСЏ СЃРѕС‚СЂСѓРґРЅРёРєР°), Employee_Title (РґРѕР»Р¶РЅРѕСЃС‚СЊ СЃРѕС‚СЂСѓРґРЅРёРєР°), Hire_Date (РґР°С‚Р° РЅР°Р№РјР°).
+--1.6.	Р­Р»РµРјРµРЅС‚С‹ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅС‹ РїРѕ Р°Р»С„Р°РІРёС‚Сѓ.
 
 create view office_count as
 select count(empl_num) as employee_count from salesreps;
@@ -64,7 +64,7 @@ select
 from office_count v
 for xml path ('office_list');
 
---2.	Отредактируйте полученный XML файл.
+--2.	РћС‚СЂРµРґР°РєС‚РёСЂСѓР№С‚Рµ РїРѕР»СѓС‡РµРЅРЅС‹Р№ XML С„Р°Р№Р».
 
 declare @xml_table xml;
 set @xml_table = 
@@ -115,7 +115,7 @@ set @xml_table.modify('
 
 select @xml_table;
 
---3.	Преобразуйте отредактированный XML файл в таблицы базы данных.
+--3.	РџСЂРµРѕР±СЂР°Р·СѓР№С‚Рµ РѕС‚СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРЅС‹Р№ XML С„Р°Р№Р» РІ С‚Р°Р±Р»РёС†С‹ Р±Р°Р·С‹ РґР°РЅРЅС‹С….
 
 declare @hdoc int;
 declare @doc varchar(max);
@@ -156,7 +156,7 @@ select * from openxml (@hdoc, '/office_list/region', 1)
 with (region varchar(20) '@region_name',
 count_reg int '@region_employee_count');
 
---4.	Создайте XML-схему из Приложения 1, предварительно внесите какие-нибудь изменения.
+--4.	РЎРѕР·РґР°Р№С‚Рµ XML-СЃС…РµРјСѓ РёР· РџСЂРёР»РѕР¶РµРЅРёСЏ 1, РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕ РІРЅРµСЃРёС‚Рµ РєР°РєРёРµ-РЅРёР±СѓРґСЊ РёР·РјРµРЅРµРЅРёСЏ.
 
 create xml schema collection EmployeeSchema as
 '<?xml version="1.0" encoding="UTF-8" ?>
@@ -192,7 +192,7 @@ create xml schema collection EmployeeSchema as
    </xs:element>
 </xs:schema>'
 
---5.	Создайте таблицу Imported_XML (столбцы – Id, Import_Date, XML_Text). Назначьте созданную схему для XML-столбца.
+--5.	РЎРѕР·РґР°Р№С‚Рµ С‚Р°Р±Р»РёС†Сѓ Imported_XML (СЃС‚РѕР»Р±С†С‹ вЂ“ Id, Import_Date, XML_Text). РќР°Р·РЅР°С‡СЊС‚Рµ СЃРѕР·РґР°РЅРЅСѓСЋ СЃС…РµРјСѓ РґР»СЏ XML-СЃС‚РѕР»Р±С†Р°.
 
 create table Imported_XML (id int primary key, import_date date, xml_text xml (EmployeeSchema));
 select * from Imported_XML;
@@ -201,9 +201,9 @@ select xml_text.query('/order/customer') from Imported_XML
 for xml auto, type;
 
 drop table Imported_xml;
---6.	Создайте три XML файла ((1), (2), (3)), два из которых должны соответствовать схеме, а один не соответствует.
---7.	Загрузите созданные XML файлы (1), (2) в столбец XML_Text таблицы Imported_XML. Поясните ошибку при загрузке файла (3), не соответствующего схеме. 
---8.	Исправьте XML файл (3) и загрузите его в столбец XML_Text таблицы Imported_XML.
+--6.	РЎРѕР·РґР°Р№С‚Рµ С‚СЂРё XML С„Р°Р№Р»Р° ((1), (2), (3)), РґРІР° РёР· РєРѕС‚РѕСЂС‹С… РґРѕР»Р¶РЅС‹ СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ СЃС…РµРјРµ, Р° РѕРґРёРЅ РЅРµ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓРµС‚.
+--7.	Р—Р°РіСЂСѓР·РёС‚Рµ СЃРѕР·РґР°РЅРЅС‹Рµ XML С„Р°Р№Р»С‹ (1), (2) РІ СЃС‚РѕР»Р±РµС† XML_Text С‚Р°Р±Р»РёС†С‹ Imported_XML. РџРѕСЏСЃРЅРёС‚Рµ РѕС€РёР±РєСѓ РїСЂРё Р·Р°РіСЂСѓР·РєРµ С„Р°Р№Р»Р° (3), РЅРµ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РµРіРѕ СЃС…РµРјРµ. 
+--8.	РСЃРїСЂР°РІСЊС‚Рµ XML С„Р°Р№Р» (3) Рё Р·Р°РіСЂСѓР·РёС‚Рµ РµРіРѕ РІ СЃС‚РѕР»Р±РµС† XML_Text С‚Р°Р±Р»РёС†С‹ Imported_XML.
 
 --select xml_text from Imported_XML for xml path ('order');
 
@@ -263,7 +263,7 @@ set @xml_3 =
 </order>';
 insert into Imported_XML values (3,'2021-01-01', @xml_3);
 --XML Validation: Invalid content. Expected element(s): 'discount'. Location: /*:order[1]/*:item[1]
---исправленный вариант
+--РёСЃРїСЂР°РІР»РµРЅРЅС‹Р№ РІР°СЂРёР°РЅС‚
 declare @xml_3 xml;
 set @xml_3 = 
 '<order orderid="3" orderdate="2005-03-01">
@@ -286,28 +286,28 @@ insert into Imported_XML values (3,'2021-01-01', @xml_3);
 declare @xml_sch xml (EmployeeSchema);
 set @xml_sch = '<order orderid="4" orderdate="2025-02-12"/>' 
 
---9.	Создайте индекс по XML-столбцу для таблицы Imported_XML.
+--9.	РЎРѕР·РґР°Р№С‚Рµ РёРЅРґРµРєСЃ РїРѕ XML-СЃС‚РѕР»Р±С†Сѓ РґР»СЏ С‚Р°Р±Р»РёС†С‹ Imported_XML.
 
 create primary xml index i_imported_xml on Imported_xml(xml_text);
 select * from sys.xml_indexes;
 
---10.	Найдите: 
---10.1.	значения определенного узла для (3).
+--10.	РќР°Р№РґРёС‚Рµ: 
+--10.1.	Р·РЅР°С‡РµРЅРёСЏ РѕРїСЂРµРґРµР»РµРЅРЅРѕРіРѕ СѓР·Р»Р° РґР»СЏ (3).
 
 select xml_text.query('/order[@orderid="3"]/address')
 from Imported_xml for xml auto, type;
 
---10.2.	значения определенного узла для всех файлов.
+--10.2.	Р·РЅР°С‡РµРЅРёСЏ РѕРїСЂРµРґРµР»РµРЅРЅРѕРіРѕ СѓР·Р»Р° РґР»СЏ РІСЃРµС… С„Р°Р№Р»РѕРІ.
 
 select xml_text.query('/order/address/*')
 from Imported_xml for xml auto, type;
 
---10.3.	значения определенного атрибута для (1), (2).
+--10.3.	Р·РЅР°С‡РµРЅРёСЏ РѕРїСЂРµРґРµР»РµРЅРЅРѕРіРѕ Р°С‚СЂРёР±СѓС‚Р° РґР»СЏ (1), (2).
 
 select xml_text.query('/order[@orderid = "1" or @orderid = "2"]/address')
 from Imported_xml for xml auto, type;
 
---10.4.	значения определенного атрибута для всех файлов.
+--10.4.	Р·РЅР°С‡РµРЅРёСЏ РѕРїСЂРµРґРµР»РµРЅРЅРѕРіРѕ Р°С‚СЂРёР±СѓС‚Р° РґР»СЏ РІСЃРµС… С„Р°Р№Р»РѕРІ.
 
 select xml_text.query('/order[@orderdate]') 
 from Imported_xml for xml auto, type;
